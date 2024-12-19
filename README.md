@@ -8,7 +8,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 - [x] nextjs15
 - [x] shadcn
 - [x] better-auth
-- [x] prisma
+- [x] prisma/prisma studio
+- [x] postgres
 
 ```
 # nextjs 15
@@ -44,6 +45,7 @@ $ npx shadcn@latest add button
 $ npx shadcn@latest add card
 $ npx shadcn@latest add form
 $ npx shadcn@latest add input
+$ npx shadcn@latest add toast
 
 # better-auth
 $ yarn add better-auth
@@ -72,8 +74,6 @@ Datasource "db": PostgreSQL database "tesdb", schema "public" at "localhost:5432
 PostgreSQL database tesdb created at localhost:5432
 Your database is now in sync with your Prisma schema. Done in 404ms
 ✔ Generated Prisma Client (v6.1.0) to .\node_modules\@prisma\client in 42ms
-
-$ npx shadcn@latest add toast
 
 ```
 
