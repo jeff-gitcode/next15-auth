@@ -8,18 +8,15 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
-const formSchema = z.object({
-    name: z.string().min(2),
-    email: z.string().email(),
-    password: z.string().min(8),
-});
+import { signUpFormSchema } from "@/lib/auth-schema";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "@/hooks/use-toast";
 
 export default function SignUp() {
 
     // 1. Define your form.
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+    const form = useForm<z.infer<typeof signUpFormSchema>>({
+        resolver: zodResolver(signUpFormSchema),
         defaultValues: {
             name: "",
             email: "",
@@ -28,9 +25,32 @@ export default function SignUp() {
     })
 
     // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
+    async function onSubmit(values: z.infer<typeof signUpFormSchema>) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
+        const { name, email, password } = values;
+        const { data, error } = await authClient.signUp.email({
+            email,
+            password,
+            name,
+            callbackURL: "/sign-in",
+        }, {
+            onRequest: (ctx) => {
+                toast({
+                    title: "Signing up...",
+                })
+            },
+            onSuccess: () => {
+                toast({
+                    title: "Sign up successful!",
+                });
+                form.reset();
+            },
+            onError: (error) => {
+                console.error(error);
+            },
+        });
+
         console.log(values)
     }
 
@@ -91,7 +111,7 @@ export default function SignUp() {
                                 </FormItem>
                             )}
                         />
-                        <Button type="submit">Submit</Button>
+                        <Button type="submit" className="w-full">Submit</Button>
                     </form>
                 </Form>
             </CardContent>

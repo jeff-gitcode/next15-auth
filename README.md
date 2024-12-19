@@ -7,7 +7,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 ## Tech Stack
 - [x] nextjs15
 - [x] shadcn
-- [x] 
+- [x] better-auth
+- [x] prisma
 
 ```
 # nextjs 15
@@ -43,6 +44,36 @@ $ npx shadcn@latest add button
 $ npx shadcn@latest add card
 $ npx shadcn@latest add form
 $ npx shadcn@latest add input
+
+# better-auth
+$ yarn add better-auth
+
+# prisma
+$ yarn add @prisma/client
+$ yarn add -D prisma
+$ npx prisma init
+
+# docker-compose up -d => launch db
+$ npx prisma generate
+$ npx prisma studio
+
+# generate better-auth schema
+$ npx @better-auth/cli generate
+√ Do you want to generate the schema to ./prisma/schema.prisma? ... yes
+✔  🚀 Schema was generated successfully!
+
+# push schema to db
+$ npx prisma db push
+
+Environment variables loaded from .env
+Prisma schema loaded from prisma\schema.prisma
+Datasource "db": PostgreSQL database "tesdb", schema "public" at "localhost:5432"      
+
+PostgreSQL database tesdb created at localhost:5432
+Your database is now in sync with your Prisma schema. Done in 404ms
+✔ Generated Prisma Client (v6.1.0) to .\node_modules\@prisma\client in 42ms
+
+$ npx shadcn@latest add toast
 
 ```
 
